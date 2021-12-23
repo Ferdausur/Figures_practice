@@ -8,6 +8,8 @@
 # and extracted in my working directory
 
 
+# Setting working directory
+
 # load libraries----------------------------------------------------------------
 
 library(sf)
@@ -52,7 +54,8 @@ map0<- ggplot(adm0)+
         geom_sf(aes(fill= NAME_0))+
         labs(title = "A solid map of Bangladesh", 
              x= "Longitude", y= "Latitude")+
-        theme_classic()
+        theme_classic()+
+        theme(legend.title = element_blank())
         
 map0
 
@@ -104,7 +107,7 @@ map3
 
 
 lats<- c(25.800, 24.800, 24.700, 23.600, 23.100, 22.850, 22.500, 21.000)
-longs<- c(89.200, 91.600, 89.000, 90.100, 89.400, 91.900, 90.300, 89.500)
+longs<- c(89.200, 91.600, 89.000, 90.100, 89.400, 91.900, 90.300, 90.800)
 
 label_name<- c("Rangpur", "Sylhet", "Rajshahi", "Dhaka", 
          "Khulna", "Chittagong", "Barishal", "Bay of Bengal")
@@ -132,9 +135,24 @@ map5 <- ggplot(adm1)+
         labs(title="A map of Bangladesh with divisional distribution",
              x="Longitude",y="Lattitude")+
         theme_classic()+
-        geom_sf_label(aes(label= NAME_1, alpha= 0.4))
+        geom_sf_label(aes(label= NAME_1, alpha= 0.4))+
+        scale_fill_manual("Divisions", 
+                          values= c("violet", "blue", "cyan", "green", 
+                                    "yellow", "orange", "red"))
 
 map5
+
+map6 <- ggplot(adm2)+
+        geom_sf(aes(fill=NAME_1))+
+        labs(title="A map of Bangladesh with district distribution",
+             x="Longitude",y="Lattitude")+
+        theme_classic()+
+        geom_sf_label(aes(label= NAME_2, alpha= 0.4), position = "identity")+
+        scale_fill_manual("Divisions", 
+                          values= c("violet", "blue", "cyan", "green", 
+                                    "yellow", "orange", "red"))
+
+map6
 
 
 #-------------------------------------------------------------------------------
@@ -148,14 +166,17 @@ adm1$population<- c(8325666, 29145000, 36433505, 15687759,
                       18485858, 15787758, 9807000)
 
 
-map6 <- ggplot(adm1)+
+map7 <- ggplot(adm1)+
         geom_sf(aes(fill=population))+
-        labs(title="A map of Bangladesh with divisional distribution",
+        labs(title="A map of Bangladesh with population distribution",
+             subtitle = "by divisions",
              x="Longitude",y="Lattitude")+
         theme_classic()+
         geom_sf_text(aes(label= NAME_1), color= "white")
 
-map6
+map7
+
+
 
 #-------------------------------------------------------------------------------
 
