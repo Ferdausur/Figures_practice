@@ -46,7 +46,25 @@ data1 %>%
         xlab("cylenders")+
         ylab("mpg")+
         theme_classic()+
-        labs(fill= "cylenders")
+        labs(fill= "cylenders", caption = "wide format data")
+
+# long format data
+# data organized as observation and value associated with single variable
+# basic plot is fine for the purpose
+
+# However, 
+# if the data has saveral values for single observation, it is wide format data.
+# the data can be transformed into long format using "gather()" of dplyr
+mtcars%>%
+        select(cyl, drat, wt, vs, am, gear, carb)%>%
+        gather(key= "keys", value = "values")%>%
+        ggplot(aes(x= keys, y= values, fill= keys))+
+        geom_violin()+ 
+        theme_classic()+
+        labs(title = "Basic violin plot", 
+             subtitle = "using mtcars dataset", 
+             caption = "long format data")
+
 
 
 # custom arrangement with reordering factors first
