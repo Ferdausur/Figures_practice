@@ -75,6 +75,22 @@ count(x= iris, Species)%>%
     # to get the text in middle
     geom_text(aes(y= y_pos, x= 2, label= Species))
 
+# the pie chart can be made as a donut with "xlim()" 
+count(x= iris, Species)%>%
+    arrange(desc(Species))%>%
+    mutate(prop= n*100/sum(n))%>%
+    mutate(y_max= cumsum(prop))%>%
+    mutate(y_min= y_max-prop[1])%>%
+    mutate(y_pos= y_max-0.5*prop[1])%>%
+    ggplot()+
+    geom_rect(aes(xmin= 3, xmax= 4, 
+                  ymin= y_min, ymax= y_max, 
+                  fill= Species))+
+    coord_polar("y")+
+    xlim(c(2,4))+
+    theme_void()+
+    geom_text(aes(y= y_pos, x=3.5, label= round(prop, 2)))
+
 # problems----
 # Pie charts are not recommended as,
 ## comparing close values of angle is difficult
