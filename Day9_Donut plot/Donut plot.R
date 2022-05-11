@@ -35,3 +35,12 @@ count(x= iris, Species)%>%
         # "x= " argiument set at average between xmin and xmax
         # to get the text in middle
         geom_text(aes(y= y_pos, x=3.5, label= round(prop, 2)))
+
+# problems----
+# Donut plot has similar problem as pic chart.
+# Thus, donut plot is also not recommended.
+
+## comparing close values are difficult
+## donut plot with too many factors are difficult to understand
+## if the labels are too large, that might not fit well 
+# resulting difficulty understanding.
