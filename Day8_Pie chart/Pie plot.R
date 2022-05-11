@@ -57,6 +57,23 @@ count(x= iris, Species)%>%
         coord_polar("y", start = 0)+
         theme_void()
 
+count(x= iris, Species)%>%
+    arrange(desc(Species))%>%
+    mutate(prop= n*100/sum(n))%>%
+    # the maximum and minimum position for groups
+    mutate(y_max= cumsum(prop))%>%
+    mutate(y_min= y_max-prop[1])%>%
+    # for setting text in the middle
+    mutate(y_pos= y_max-0.5*prop[1])%>%
+    ggplot()+
+    geom_rect(aes(xmin= 0, xmax= 4, 
+                  ymin= y_min, ymax= y_max, 
+                  fill= Species))+
+    coord_polar("y")+
+    theme_void()+
+    # "x= " argiument set at average between xmin and xmax
+    # to get the text in middle
+    geom_text(aes(y= y_pos, x= 2, label= Species))
 
 # problems----
 # Pie charts are not recommended as,
